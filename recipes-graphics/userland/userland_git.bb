@@ -12,11 +12,11 @@ COMPATIBLE_MACHINE = "^rpi$"
 
 SRCBRANCH = "master"
 SRCFORK = "raspberrypi"
-SRCREV = "17d2fdc1abd370e09ba7074753294c7976dd6b0d"
+SRCREV = "6fb59736b1ae80fc62cddfe3309c800f72e1c07e"
 
 # Use the date of the above commit as the package version. Update this when
 # SRCREV is changed.
-PV = "20190724"
+PV = "20200316"
 
 SRC_URI = "\
     git://github.com/${SRCFORK}/userland.git;protocol=git;branch=${SRCBRANCH} \
@@ -39,6 +39,8 @@ SRC_URI = "\
     file://0017-khronos-backport-typedef-for-EGL_EXT_image_dma_buf_i.patch \
     file://0018-Add-EGL_IMG_context_priority-related-defines.patch \
     file://0019-libfdt-Undefine-__wordsize-if-already-defined.patch \
+    file://0020-openmaxil-add-pkg-config-file.patch \
+    file://0021-cmake-Disable-format-overflow-warning-as-error.patch \
 "
 S = "${WORKDIR}/git"
 
@@ -73,6 +75,10 @@ do_install_append () {
 		rm -rf ${D}${libdir}/pkgconfig/egl.pc ${D}${libdir}/pkgconfig/glesv2.pc \
 			${D}${libdir}/pkgconfig/wayland-egl.pc
 		rm -rf ${D}${includedir}/EGL ${D}${includedir}/GLES* ${D}${includedir}/KHR
+        else
+                ln -sf brcmglesv2.pc ${D}${libdir}/pkgconfig/glesv2.pc
+                ln -sf brcmegl.pc ${D}${libdir}/pkgconfig/egl.pc
+                ln -sf brcmvg.pc ${D}${libdir}/pkgconfig/vg.pc
 	fi
 }
 

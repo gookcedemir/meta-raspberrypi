@@ -33,10 +33,10 @@ LIC_FILES_CHKSUM = "\
 NO_GENERIC_LICENSE[Firmware-broadcom_bcm43xx-rpidistro] = "LICENCE.broadcom_bcm43xx"
 NO_GENERIC_LICENSE[WHENCE] = "WHENCE"
 
-SRC_URI = "git://github.com/RPi-Distro/firmware-nonfree"
+SRC_URI = "git://github.com/RPi-Distro/firmware-nonfree;branch=buster;protocol=https"
 
-SRCREV = "f0ad1a42b051aa9da1d9e1dc606dd68ec2f163a5"
-PV = "0.0+git${SRCPV}"
+SRCREV = "616fc2dd4df421e3974179d9e46d45e7006aeb28"
+PV = "20190114-1+rpt6"
 
 S = "${WORKDIR}/git"
 

@@ -28,8 +28,6 @@ RPI_KERNEL_DEVICETREE_OVERLAYS ?= " \
     overlays/iqaudio-dacplus.dtbo \
     overlays/miniuart-bt.dtbo \
     overlays/mcp2515-can0.dtbo \
-    overlays/pi3-disable-bt.dtbo \
-    overlays/pi3-miniuart-bt.dtbo \
     overlays/pitft22.dtbo \
     overlays/pitft28-resistive.dtbo \
     overlays/pitft35-resistive.dtbo \
@@ -40,6 +38,8 @@ RPI_KERNEL_DEVICETREE_OVERLAYS ?= " \
     overlays/vc4-fkms-v3d.dtbo \
     overlays/w1-gpio-pullup.dtbo \
     overlays/w1-gpio.dtbo \
+    overlays/gpio-ir.dtbo \
+    overlays/gpio-ir-tx.dtbo \
     "
 
 RPI_KERNEL_DEVICETREE ?= " \
@@ -77,7 +77,9 @@ MACHINE_FEATURES += "apm usbhost keyboard vfat ext2 screen touchscreen alsa blue
 # Raspberry Pi has no hardware clock
 MACHINE_FEATURES_BACKFILL_CONSIDERED = "rtc"
 
-MACHINE_EXTRA_RRECOMMENDS += " kernel-modules udev-rules-rpi"
+MACHINE_EXTRA_RRECOMMENDS += "kernel-modules udev-rules-rpi"
+MACHINE_ESSENTIAL_EXTRA_RRECOMMENDS += "${@oe.utils.conditional('ENABLE_I2C', '1', 'kernel-module-i2c-dev kernel-module-i2c-bcm2708', '', d)}"
+
 
 # Set Raspberrypi splash image
 SPLASH = "psplash-raspberrypi"
